@@ -2,9 +2,31 @@
 
 A [API Task UNMEP](https://api-tasks-unmep.vercel.app) permitirá a listagem, criação, atualização e exclusão de tarefas, tais tarefas apresentam os campos como titulo, descrição, status (pendente, executando e concluída) e data (data de criação da tarefa que será preenchido automaticamente).
 
+## Execução do projeto em outra máquina
+
+Para executar este projeto em outra máquina é necessário ter instala o PHP, XAMPP ou WampServer que vem inclusos com o MySql e o gerenciador de dependências composer, contudo as dependências necessárias já estão inclusas neste repositório.
+
+Outra coisa a ser feita é a configuração do banco de dados através do arquivo ``config.php``, os campos DB_HOST, DB_DBNAME, DB_USER, DB_PASSWORD serão redefinidos de acordo com as configurações do MySql:
+
++ De:
+        
+        define('DB_HOST',      $_ENV['DB_HOST']);
+        define('DB_DBNAME',    $_ENV['DB_DBNAME']);
+        define('DB_USER',      $_ENV['DB_USER']);
+        define('DB_PASSWORD',  $_ENV['DB_PASSWORD']);
+        define('DB_CHARSET',   $_ENV['DB_CHARSET']);
+
++ Para:
+
+        define('DB_HOST',      'localhost');
+        define('DB_DBNAME',    'nome_banco_de_dados');
+        define('DB_USER',      'nome_usuario_banco_dados');
+        define('DB_PASSWORD',  'senha_banco_dados');
+        define('DB_CHARSET',   'utf-8');
+
 ## Teste da API e URL de acesso
 
-A API pode ser testada por meio das plataformas Postman ou Insomnia.
+Para testar o projeto por meio da API basta usar plataformas como Postman ou Insomnia.
 
 URL da API: https://api-tasks-unmep.vercel.app
 
