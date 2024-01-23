@@ -1,0 +1,22 @@
+{
+    "name": "rafael/projeto_unmep_back_end",
+    "description": "API crud para manipulação de lista de tarefas",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Rafael\\ProjetoUnmepBackEnd\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rafael Brito dos Santos",
+            "email": "rafa.brito295@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "core\\": "core/"
+        }
+    }
+}
