@@ -2,7 +2,7 @@
 
 A [API Task UNMEP](https://api-tasks-unmep.vercel.app) permitirá a listagem, criação, atualização e exclusão de tarefas, tais tarefas apresentam os campos como titulo, descrição, status (pendente, executando e concluída) e data (data de criação da tarefa que será preenchido automaticamente).
 
-# Teste da API e URL de acesso
+## Teste da API e URL de acesso
 
 A API pode ser testada por meio de plataformas Postman ou Insomnia.
 
@@ -11,9 +11,9 @@ URL da API: https://api-tasks-unmep.vercel.app
 Para o preenchimento dos campos seja durante a criação ou atualização de uma tarefa indica-se o uso do ``form-data`` no Postman ou de um ``Multipart`` no Insomnia para simular um formulário de preenchimento.
 
 
-# Grupo de Recursos da API
+## Grupo de Recursos da API
 
-# Listar Tarefas [/?a=list_task]
+## Listar Tarefas [/?a=list_task]
 
 Exibir a lista com as tarefas.
 
@@ -61,7 +61,7 @@ Exibir a lista com as tarefas.
             ]
         }
 
-# Criar Tarefa [/?a=create_task&id={id_task}]
+## Criar Tarefa [/?a=create_task&id={id_task}]
 
 Adicionar uma nova tarefa a lista de tarefas.
 
@@ -108,7 +108,7 @@ Adicionar uma nova tarefa a lista de tarefas.
                 } 
             }
 
-# Editar Tarefa [/?a=edit_task&id={id_task}]
+## Editar Tarefa [/?a=edit_task&id={id_task}]
 
 Editar uma tarefa específica da lista de tarefas, um ou mais campos podem ser alterados na edição.
 
@@ -161,7 +161,7 @@ Editar uma tarefa específica da lista de tarefas, um ou mais campos podem ser a
                 "message": "Tarefa editada com sucesso!"
             }
 
-# Excluir Tarefa [/?a=delete_task&id={id_task}]
+## Excluir Tarefa [/?a=delete_task&id={id_task}]
 
 Excluir uma tarefa da lista de tarefas.
 
