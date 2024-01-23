@@ -128,6 +128,10 @@ class Main
 
                             $task_edited = $task->find_task($_GET['id']);
 
+                            // // tratar o campo date_at para o formato d-m-Y
+                            $date = date_create($task_edited[0]->date_at);
+                            $task_edited[0]->date_at = date_format($date, 'd-m-Y');
+
                             $data = [
                                 "task" => $task_edited,
                                 "message" => "Tarefa editada com sucesso!"
