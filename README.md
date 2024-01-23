@@ -13,7 +13,7 @@ Para o preenchimento dos campos seja durante a criação ou atualização de uma
 
 ## Grupo de Recursos da API
 
-### Listar Tarefas [/?a=list_task]
+### Listar Tarefas [/ ou /?a=list_task]
 
 Exibir a lista com as tarefas.
 
