@@ -179,7 +179,7 @@ Excluir uma tarefa da lista de tarefas.
             Não é obrigatório o seu preenchimento
 
 
-+ Response 200 (application/json)
++ Response (application/json)
 
     + Body
 
