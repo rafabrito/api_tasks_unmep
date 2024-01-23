@@ -67,7 +67,7 @@ Adicionar uma nova tarefa a lista de tarefas.
 
 #### Criar (Create) [POST]
 
-+ Parametros
++ Parameters
     + id (required, number, `1`)
 
 
@@ -78,7 +78,7 @@ Adicionar uma nova tarefa a lista de tarefas.
             Não é obrigatório o seu preenchimento
 
 
-+ Attributos (object)
++ Attributes (object)
 
     + title: nome do título (string, required)
     + description (text, required)
@@ -115,10 +115,10 @@ Editar uma tarefa específica da lista de tarefas, um ou mais campos podem ser a
 
 ### Editar (Update) [POST]
 
-+ Parametros
++ Parameters
     + id (required, number, `1`)
 
-+ Attributos (object)
++ Attributes (object)
 
     + title: nome do título (string, optional)
     + description (text, optional)
@@ -168,7 +168,7 @@ Excluir uma tarefa da lista de tarefas.
 
 ### Deletar (Delete) [DELETE]
 
-+ Parametros
++ Parameters
     + id (required, number, `1`)
 
 
