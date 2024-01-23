@@ -13,11 +13,11 @@ Para o preenchimento dos campos seja durante a criação ou atualização de uma
 
 ## Grupo de Recursos da API
 
-## Listar Tarefas [/?a=list_task]
+### Listar Tarefas [/?a=list_task]
 
 Exibir a lista com as tarefas.
 
-### Listar (List) [GET /?a=list_task]
+### Listar (List) [GET]
 
 + Request (application/json)
 
@@ -61,11 +61,11 @@ Exibir a lista com as tarefas.
             ]
         }
 
-## Criar Tarefa [/?a=create_task&id={id_task}]
+### Criar Tarefa [/?a=create_task&id={id_task}]
 
 Adicionar uma nova tarefa a lista de tarefas.
 
-### Criar (Create) [POST]
+#### Criar (Create) [POST]
 
 + Parametros
     + id (required, number, `1`)
@@ -108,7 +108,7 @@ Adicionar uma nova tarefa a lista de tarefas.
                 } 
             }
 
-## Editar Tarefa [/?a=edit_task&id={id_task}]
+### Editar Tarefa [/?a=edit_task&id={id_task}]
 
 Editar uma tarefa específica da lista de tarefas, um ou mais campos podem ser alterados na edição.
 
@@ -161,7 +161,7 @@ Editar uma tarefa específica da lista de tarefas, um ou mais campos podem ser a
                 "message": "Tarefa editada com sucesso!"
             }
 
-## Excluir Tarefa [/?a=delete_task&id={id_task}]
+### Excluir Tarefa [/?a=delete_task&id={id_task}]
 
 Excluir uma tarefa da lista de tarefas.
 
