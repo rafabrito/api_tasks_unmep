@@ -2,13 +2,13 @@
 
 A [API Task UNMEP](https://api-tasks-unmep.vercel.app) permitirá a listagem, criação, atualização e exclusão de tarefas, tais tarefas apresentam os campos como titulo, descrição, status (pendente, executando e concluída) e data (data de criação da tarefa que será preenchido automaticamente).
 
-## Execução do projeto em outra máquina
+## Execução do projeto em outra máquina (opcional)
 
-Para executar este projeto em outra máquina é necessário ter instala o PHP, XAMPP ou WampServer que vem inclusos com o MySql e o gerenciador de dependências composer, contudo as dependências necessárias já estão inclusas neste repositório.
+Para executar este projeto em outra máquina é necessário ter instalado o PHP, XAMPP ou WampServer que vem inclusos com o MySql e o gerenciador de dependências composer, contudo as dependências necessárias já estão inclusas neste repositório.
 
 Caso ocorra algum problema relacionado as dependências basta executar dentro do diretório do projeto por meio do terminal o comando ``composer update``.
 
-Outra coisa a ser feita é a configuração do banco de dados através do arquivo ``config.php``, os campos DB_HOST, DB_DBNAME, DB_USER, DB_PASSWORD serão redefinidos de acordo com as configurações do MySql:
+Outra coisa a ser feita é a configuração do banco de dados através do arquivo ``config.php``, os campos ``DB_HOST``, ``DB_DBNAME``, ``DB_USER``, ``DB_PASSWORD`` e ``DB_CHARSET`` serão redefinidos de acordo com as configurações do MySql local:
 
 + De:
         
