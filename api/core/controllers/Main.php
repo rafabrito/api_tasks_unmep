@@ -56,6 +56,8 @@ class Main
                                     "message" => "Tarefa criada com sucesso!"
                                 ] 
                             ];
+
+                            echo json_encode($data);
                         } else {
                             $data = [
                                 "error" => [
@@ -70,6 +72,8 @@ class Main
                         $data = [
                             "error" => [ "message" => "O campo 'status' não foi definido"]
                         ];
+
+                        echo json_encode($data);
                     }
                 } else {
                     $data = [
