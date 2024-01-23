@@ -91,7 +91,7 @@ Adicionar uma nova tarefa a lista de tarefas.
 + Request (application/json)
 
     + Body
-    
+
             {
               "title": "Título da tarefa",
               "description": "Descrição da tarefa que será feita",
@@ -156,7 +156,7 @@ Editar uma tarefa específica da lista de tarefas, um ou mais campos podem ser a
                         "title": "Titulo alterado",
                         "description": "Descrição alterada",
                         "status": "pendente",
-                        "date_at": "2024-01-23 17:31:19"
+                        "date_at": "23-01-2024"
                     }
                 ],
                 "message": "Tarefa editada com sucesso!"
