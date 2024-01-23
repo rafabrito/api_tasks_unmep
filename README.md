@@ -4,7 +4,7 @@ A [API Task UNMEP](https://api-tasks-unmep.vercel.app) permitirá a listagem, cr
 
 ## Teste da API e URL de acesso
 
-A API pode ser testada por meio de plataformas Postman ou Insomnia.
+A API pode ser testada por meio das plataformas Postman ou Insomnia.
 
 URL da API: https://api-tasks-unmep.vercel.app
 
