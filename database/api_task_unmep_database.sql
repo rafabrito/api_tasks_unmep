@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24-Jan-2024 às 02:13
+-- Tempo de geração: 24-Jan-2024 às 19:02
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -40,11 +40,10 @@ CREATE TABLE `task` (
 --
 
 INSERT INTO `task` (`id`, `title`, `description`, `status`, `date_at`) VALUES
-(1, 'Aqui está', 'aqui oh', '', '2024-01-23 02:13:14'),
-(2, 'Tarefa 2', 'alterei a descrição', 'concluída', '2024-01-23 15:00:41'),
-(3, 'Tarefa 3', 'Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis. justo sed et turpis curabitur leo enim potenti, ultricies tempor habitasse rutrum netus himenaeos torquent, commodo justo sed eros potenti per. nam habitant nunc sociosqu vitae integer gravida aenean lectus, tempor ultrices in ligula enim taciti at fermentum, bibendum eleifend augue habitant metus congue etiam.', 'concluída', '2024-01-20 21:37:27'),
-(4, 'Tarefa 4', 'Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis. justo sed et turpis curabitur leo enim potenti, ultricies tempor habitasse rutrum netus himenaeos torquent, commodo justo sed eros potenti per. nam habitant nunc sociosqu vitae integer gravida aenean lectus, tempor ultrices in ligula enim taciti at fermentum, bibendum eleifend augue habitant metus congue etiam.', 'executando', '2024-01-20 21:38:14'),
-(9, 'Titulo alterado', 'Descrição alterada', 'pendente', '2024-01-23 18:52:36');
+(1, 'Tarefa 1', 'Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis.', 'pendente', '2024-01-23 02:13:14'),
+(2, 'Tarefa 2', 'Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis.', 'concluída', '2024-01-23 15:00:41'),
+(3, 'Tarefa 3', 'Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis.', 'concluída', '2024-01-20 21:37:27'),
+(4, 'Tarefa 4', 'Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis.', 'executando', '2024-01-20 21:38:14');
 
 --
 -- Índices para tabelas despejadas
