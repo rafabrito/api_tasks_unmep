@@ -26,7 +26,7 @@ Outra coisa a ser feita é a criação do banco de dados e a configuração dos 
         define('DB_PASSWORD',  'senha_banco_dados');
         define('DB_CHARSET',   'utf-8');
 
-Para preencher o banco de dados recém com dados fictícios é necessário executar o script ``.sql`` que está em [database/api_task_unmep_database](https://github.com/rafabrito/api_tasks_unmep/tree/main/database/).
+Para preencher o banco de dados recém com dados fictícios é necessário executar o script ``.sql`` que está em [database/api_task_unmep_database.sql](https://github.com/rafabrito/api_tasks_unmep/tree/main/database/).
 
 ## Teste da API e URL de acesso
 
@@ -64,29 +64,29 @@ Exibir a lista com todas as tarefas.
             "tasks": [
                 {
                     "id": 1,
-                    "title": "Aqui está",
-                    "description": "aqui oh",
-                    "status": "",
+                    "title": "Tarefa 1",
+                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis.",
+                    "status": "pendente",
                     "date_at": "23-01-2024"
                 },
                 {
                     "id": 2,
                     "title": "Tarefa 2",
-                    "description": "alterei a descrição",
+                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis.",
                     "status": "concluída",
                     "date_at": "23-01-2024"
                 },
                 {
                     "id": 3,
                     "title": "Tarefa 3",
-                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis. justo sed et turpis curabitur leo enim potenti, ultricies tempor habitasse rutrum netus himenaeos torquent, commodo justo sed eros potenti per. nam habitant nunc sociosqu vitae integer gravida aenean lectus, tempor ultrices in ligula enim taciti at fermentum, bibendum eleifend augue habitant metus congue etiam.",
+                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis.",
                     "status": "concluída",
                     "date_at": "20-01-2024"
                 },
                 {
                     "id": 4,
                     "title": "Tarefa 4",
-                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis. justo sed et turpis curabitur leo enim potenti, ultricies tempor habitasse rutrum netus himenaeos torquent, commodo justo sed eros potenti per. nam habitant nunc sociosqu vitae integer gravida aenean lectus, tempor ultrices in ligula enim taciti at fermentum, bibendum eleifend augue habitant metus congue etiam.",
+                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis.",
                     "status": "executando",
                     "date_at": "20-01-2024"
                 }
