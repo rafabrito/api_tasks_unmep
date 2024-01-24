@@ -65,28 +65,36 @@ Exibir a lista com todas as tarefas.
                 {
                     "id": 1,
                     "title": "Tarefa 1",
-                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis.",
+                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, 
+                    convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames 
+                    lectus mattis.",
                     "status": "pendente",
                     "date_at": "23-01-2024"
                 },
                 {
                     "id": 2,
                     "title": "Tarefa 2",
-                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis.",
+                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, 
+                    convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames 
+                    lectus mattis.",
                     "status": "concluída",
                     "date_at": "23-01-2024"
                 },
                 {
                     "id": 3,
                     "title": "Tarefa 3",
-                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis.",
+                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, 
+                    convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames 
+                    lectus mattis.",
                     "status": "concluída",
                     "date_at": "20-01-2024"
                 },
                 {
                     "id": 4,
                     "title": "Tarefa 4",
-                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames lectus mattis.",
+                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, 
+                    convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames 
+                    lectus mattis.",
                     "status": "executando",
                     "date_at": "20-01-2024"
                 }
