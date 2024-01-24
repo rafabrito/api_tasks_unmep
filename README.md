@@ -38,10 +38,9 @@ Para o preenchimento dos campos seja durante a criação ou atualização de uma
 
 ## Respostas da API (response)
 
-| Termos | Descrição |
-|---|---|
-| `[sucess]` | Requisição realizada com sucesso.|
-| `[error]` | Erros de validação ou relacionados aos campos informados não existirem ou estarem vazias ou devido a não existência no sistema.|
+
+`[sucess]`: Requisição realizada com sucesso.
+`[error]`: Erros de validação ou relacionados aos campos informados não existirem ou estarem vazias ou devido a não existência no sistema.
 
 ## Grupo de Recursos da API
 
@@ -339,6 +338,15 @@ Exibir uma tarefa específica da lista de tarefas.
                     "message": "Tarefa não existe"
                 }
             }
+
+
+            {
+                "error": { 
+                    "message": "Não foi especificado o 'id' da tarefa"
+                }
+            }
+
+            
 
 ## Uso de Banco de dados externo
 

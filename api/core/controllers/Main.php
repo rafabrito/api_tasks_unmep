@@ -246,6 +246,13 @@ class Main
 
                 echo json_encode($data);
             }
+        } else {
+            $data = [
+                "error" => [ "message" => "Não foi especificado o 'id' da tarefa"]
+            ];
+
+            echo json_encode($data);
         }
+
     }
 }
