@@ -1,14 +1,14 @@
 # API Task UNMEP
 
-A [API Task UNMEP](https://api-tasks-unmep.vercel.app) permitirá a listagem, criação, atualização e exclusão de tarefas, tais tarefas apresentam os campos como titulo, descrição, status (pendente, executando e concluída) e data (data de criação da tarefa que será preenchido automaticamente).
+A [API Task UNMEP](https://api-tasks-unmep.vercel.app) foi hospedada na plataforma ``Vercel`` para possibilitar a listagem, criação, atualização e exclusão de tarefas, as tarefas em questão contém os seguintes campos: título, descrição, status (pendente, executando e concluída) e data (data de criação da tarefa que será preenchido automaticamente).
 
 ## Execução do projeto em outra máquina (opcional)
 
-Para executar este projeto em outra máquina é necessário ter instalado o PHP, XAMPP ou WampServer que vem inclusos com o MySql e o gerenciador de dependências composer, contudo as dependências necessárias já estão inclusas neste repositório.
+Para executar este projeto em outra máquina é necessário ter instalado o PHP, XAMPP ou WampServer que vêm incluídos com o MySql e o gerenciador de dependências composer, contudo as dependências necessárias já estão inclusas neste repositório.
 
-Caso ocorra algum problema relacionado as dependências basta executar dentro do diretório do projeto por meio do terminal o comando ``composer update``.
+Caso ocorra algum problema relacionado às dependências basta executar dentro do diretório do projeto por meio do terminal o comando ``composer update``.
 
-Outra coisa a ser feita é a configuração do banco de dados através do arquivo ``config.php``, os campos ``DB_HOST``, ``DB_DBNAME``, ``DB_USER``, ``DB_PASSWORD`` e ``DB_CHARSET`` serão redefinidos de acordo com as configurações do MySql local:
+Outra coisa a ser feita é a criação do banco de dados e a configuração dos campos referentes a conexão com o MySql, para isso basta abrir o arquivo [config.php](https://github.com/rafabrito/api_tasks_unmep/tree/main/api/), e redefinir os campos ``DB_HOST``, ``DB_DBNAME``, ``DB_USER``, ``DB_PASSWORD`` e ``DB_CHARSET`` de acordo com as configuração local:
 
 + De:
         
@@ -26,20 +26,28 @@ Outra coisa a ser feita é a configuração do banco de dados através do arquiv
         define('DB_PASSWORD',  'senha_banco_dados');
         define('DB_CHARSET',   'utf-8');
 
+Para preencher o banco de dados recém com dados fictícios é necessário executar o script ``.sql`` que está em [database/api_task_unmep_database](https://github.com/rafabrito/api_tasks_unmep/tree/main/database/).
+
 ## Teste da API e URL de acesso
 
 Para testar o projeto por meio da API basta usar plataformas como Postman ou Insomnia.
 
 URL da API: https://api-tasks-unmep.vercel.app
 
-Para o preenchimento dos campos seja durante a criação ou atualização de uma tarefa indica-se o uso do ``form-data`` no Postman ou de um ``Multipart`` no Insomnia para simular um formulário de preenchimento.
+Para o preenchimento dos campos seja durante a criação ou atualização de uma tarefa indica-se o uso do ``form-data`` no Postman ou de um ``Multipart Form`` no Insomnia para simulação de um formulário de preenchimento.
 
+## Respostas da API (response)
+
+| Termos | Descrição |
+|---|---|
+| `[sucess]` | Requisição realizada com sucesso.|
+| `[error]` | Erros de validação ou relacionados aos campos informados não existirem ou estarem vazias ou devido a não existência no sistema.|
 
 ## Grupo de Recursos da API
 
-### Listar Tarefas [/ ou /?a=list_task]
+### Listar Tarefas [/ ``ou`` /?a=list_task]
 
-Exibir a lista com as tarefas.
+Exibir a lista com todas as tarefas.
 
 ### Listar (List) [GET]
 
@@ -50,7 +58,7 @@ Exibir a lista com as tarefas.
             Não é obrigatório o seu preenchimento
 
 
-+ Response (application/json)
++ Response [sucess] (application/json)
 
         {
             "tasks": [
@@ -85,15 +93,11 @@ Exibir a lista com as tarefas.
             ]
         }
 
-### Criar Tarefa [/?a=create_task&id={id_task}]
+### Criar Tarefa [/?a=create_task]
 
 Adicionar uma nova tarefa a lista de tarefas.
 
 #### Criar (Create) [POST]
-
-+ Parameters
-    + id (required, number, `1`)
-
 
 + Request (application/json)
 
@@ -123,7 +127,7 @@ Adicionar uma nova tarefa a lista de tarefas.
             }
 
 
-+ Response (application/json)
++ Response [sucess] (application/json)
 
     + Body
 
@@ -133,9 +137,48 @@ Adicionar uma nova tarefa a lista de tarefas.
                 } 
             }
 
++ Response [error] (application/json)
+
+    + Body
+
+            {
+                "error": {
+                    "message": "Status não existe",
+                    "possible status": ["pendente","executando", "concluída"]
+                }
+            }
+
+
+            {
+                "error": { 
+                    "message": "O campo 'status' não foi definido"
+                }
+            }
+
+
+            {
+                "error": { 
+                    "message": "O campo 'description' não foi definido"
+                }
+            }
+
+
+            {
+                "error": { 
+                    "message": "O campo 'title' não foi definido"
+                }
+            }
+
+
+            {
+                "error": { 
+                    "message": "Não foram preenchido todos os campos"
+                }
+            }
+
 ### Editar Tarefa [/?a=edit_task&id={id_task}]
 
-Editar uma tarefa específica da lista de tarefas, um ou mais campos podem ser alterados na edição.
+Editar tarefa específica da lista de tarefas, salientando que um ou mais campos podem ser alterados na edição.
 
 ### Editar (Update) [POST]
 
@@ -169,7 +212,7 @@ Editar uma tarefa específica da lista de tarefas, um ou mais campos podem ser a
             }
 
 
-+ Response (application/json)
++ Response [sucess] (application/json)
 
     + Body
 
@@ -186,9 +229,35 @@ Editar uma tarefa específica da lista de tarefas, um ou mais campos podem ser a
                 "message": "Tarefa editada com sucesso!"
             }
 
++ Response [error] (application/json)
+
+    + Body
+
+            {
+                "error": {
+                    "message": "Status não existe",
+                    "possible status": ["pendente","executando", "concluída"]
+                }
+            }
+
+
+            {
+                "error": { 
+                    "message": "Tarefa não existe"
+                }
+            }
+
+
+            {
+                "error": { 
+                    "message": "Não foi especificado o 'id' da tarefa"
+                }
+            }
+
+
 ### Excluir Tarefa [/?a=delete_task&id={id_task}]
 
-Excluir uma tarefa da lista de tarefas.
+Excluir tarefa específica da lista de tarefas.
 
 ### Deletar (Delete) [DELETE]
 
@@ -203,7 +272,7 @@ Excluir uma tarefa da lista de tarefas.
             Não é obrigatório o seu preenchimento
 
 
-+ Response (application/json)
++ Response [sucess] (application/json)
 
     + Body
 
@@ -211,3 +280,58 @@ Excluir uma tarefa da lista de tarefas.
                 "removed": 5,
                 "message": "Tarefa deletada com sucesso!"
             }
+
++ Response [error] (application/json)
+
+    + Body
+
+            {
+                "error": { 
+                    "message": "Tarefa não existe"
+                }
+            }
+
+### Exibir Tarefa [/?a=display_task&id={id_task}]
+
+Exibir uma tarefa específica da lista de tarefas.
+
+### Detalhar (Read) [GET]
+
++ Parameters
+    + codigo (required, number, `1`) ... Código do contato
+
++ Request (application/json)
+
+    + Headers
+
+            Não é obrigatório o seu preenchimento
+
++ Response [sucess] (application/json)
+
+    + Body
+
+            {
+                "task": [
+                    {
+                        "id": 1,
+                        "title": "Aqui está",
+                        "description": "aqui oh",
+                        "status": "",
+                        "date_at": "23-01-2024"
+                    }
+                ]
+            }
+
++ Response [error] (application/json)
+
+    + Body
+
+            {
+                "error": { 
+                    "message": "Tarefa não existe"
+                }
+            }
+
+## Uso de Banco de dados externo
+
+Para que fosse possível usar o MySql como SGBD da API (hospedada no ``Vercel``), foi necessário criar uma conta na plataforma [Clever Clound](https://www.clever-cloud.com) e implantar de forma gratuita o MySql.
