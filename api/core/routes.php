@@ -6,6 +6,7 @@ $routes = [
     'create_task' => 'main@create',
     'edit_task' => 'main@edit',
     'delete_task' => 'main@destroy',
+    'display_task' => 'main@show',
 ];
 
 // definir ação padrão
@@ -16,7 +17,7 @@ if(isset($_GET['a'])) {
 
     // verificar se a ação existe no conjunto de rotas
     if(!key_exists($_GET['a'], $routes)){
-        $action = 'error';
+        $action = 'list_task';
     } else {
         $action = $_GET['a'];
     }
