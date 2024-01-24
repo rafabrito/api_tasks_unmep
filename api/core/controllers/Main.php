@@ -52,7 +52,7 @@ class Main
                             $task->create_task();
 
                             $data = [
-                                "sucess" => [
+                                "success" => [
                                     "message" => "Tarefa criada com sucesso!"
                                 ] 
                             ];
@@ -124,15 +124,17 @@ class Main
     
                         echo json_encode($data);
                     } else {
+
                         $task = new Task();
                         $verify = $task->find_task($_GET['id']);
+
                         if(!empty($verify)) {
 
                             $task->edit_task($_GET['id']);
 
                             $task_edited = $task->find_task($_GET['id']);
 
-                            // // tratar o campo date_at para o formato d-m-Y
+                            // tratar o campo date_at para o formato d-m-Y
                             $date = date_create($task_edited[0]->date_at);
                             $task_edited[0]->date_at = date_format($date, 'd-m-Y');
 
@@ -152,15 +154,18 @@ class Main
                     }
                 }
             } else {
+
                 $data = [
-                    "error" => [ "message" => "Não foi especificado o id da tarefa"]
+                    "error" => [ "message" => "Não foi especificado o 'id' da tarefa"]
                 ];
 
                 echo json_encode($data);
             }
         } else {
+
             $task = new Task();
             $verify = $task->find_task($_GET['id']);
+
             if(!empty($verify)) {
                 $data = [
                     "task" => $verify,
@@ -169,6 +174,7 @@ class Main
 
                 echo json_encode($data);
             } else {
+
                 $data = [
                     "error" => [ "message" => "Tarefa não existe"]
                 ];
@@ -186,6 +192,7 @@ class Main
     public function destroy()
     {
         if(isset($_GET['id']) AND !empty($_GET['id'])) {
+
             $task = new Task();
             $verify = $task->find_task($_GET['id']);
 
@@ -196,6 +203,39 @@ class Main
                 $data = [
                     "removed" => intval($_GET['id']),
                     "message" => "Tarefa deletada com sucesso!"
+                ];
+
+                echo json_encode($data);
+            } else {
+                $data = [
+                    "error" => [ "message" => "Tarefa não existe"]
+                ];
+
+                echo json_encode($data);
+            }
+        }
+    }
+
+    /**
+     * Exibir uma tarefa específica
+     *
+     * @return \Http\Response
+     */
+    public function show()
+    {
+        if(isset($_GET['id']) AND !empty($_GET['id'])) {
+            
+            $task = new Task();
+            $single_task = $task->find_task($_GET['id']);
+
+            if(!empty($single_task)) {
+
+                // tratar o campo date_at para o formato d-m-Y
+                $date = date_create($single_task[0]->date_at);
+                $single_task[0]->date_at = date_format($date, 'd-m-Y');
+
+                $data = [
+                    "task" => $single_task,
                 ];
 
                 echo json_encode($data);
