@@ -26,7 +26,7 @@ Outra coisa a ser feita é a criação do banco de dados e a configuração dos 
         define('DB_PASSWORD',  'senha_banco_dados');
         define('DB_CHARSET',   'utf-8');
 
-Para preencher o banco de dados recém com dados fictícios é necessário executar o script ``.sql`` que está em [database/api_task_unmep_database.sql](https://github.com/rafabrito/api_tasks_unmep/blob/main/database/api_task_unmep_database.sql).
+Para preencher o banco de dados recém criado com dados fictícios é necessário executar o script ``.sql`` que está em [database/api_task_unmep_database.sql](https://github.com/rafabrito/api_tasks_unmep/blob/main/database/api_task_unmep_database.sql).
 
 O projeto está estruturado da seguinte forma:
 
