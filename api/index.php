@@ -6,7 +6,6 @@ session_start();
 // carregar arquivo config
 require('config.php');
 
-//(foi necessário executar composer init e composer updade antes)
 // carrega todas as classes do projeto 
 require_once('vendor/autoload.php');
 

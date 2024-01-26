@@ -1,9 +1,10 @@
 <?php
 
-define('APP NAME',          'UNMEP backend');
+// configuração básica da aplicação
+define('APP NAME',          'API Tasks UnMEP');
 define('APP_VERSION',       '1.0.0');
 
-// // MYSQL
+// MYSQL
 define('DB_HOST',      $_ENV['DB_HOST']);
 define('DB_DBNAME',    $_ENV['DB_DBNAME']);
 define('DB_USER',      $_ENV['DB_USER']);
