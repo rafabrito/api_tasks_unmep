@@ -1,14 +1,14 @@
-# API Task UNMEP
+# API Tasks UNMEP
 
-A [API Task UNMEP](https://api-tasks-unmep.vercel.app) foi hospedada na plataforma ``Vercel`` para possibilitar a listagem, criação, atualização e exclusão de tarefas, as tarefas em questão contém os seguintes campos: título, descrição, status (pendente, executando e concluída) e data (data de criação da tarefa que será preenchido automaticamente).
+A [API Tasks UNMEP](https://api-tasks-unmep.vercel.app) foi hospedada na plataforma ``Vercel`` para possibilitar a listagem, criação, atualização e exclusão de tarefas, as tarefas em questão contém os seguintes campos: título, descrição, status (pendente, executando e concluída) e data (data de criação da tarefa que será preenchido automaticamente).
 
 ## Execução do projeto em outra máquina (opcional)
 
-Para executar este projeto em outra máquina é necessário ter instalado o PHP, XAMPP ou WampServer que vêm incluídos com o MySql e o gerenciador de dependências composer, contudo as dependências necessárias já estão inclusas neste repositório.
+Para executar este projeto em outra máquina como uma API local é necessário ter instalado o PHP, XAMPP ou WampServer, o MySQL e o gerenciador de dependências composer, contudo as dependências necessárias já estão inclusas neste repositório.
 
 Caso ocorra algum problema relacionado às dependências basta executar dentro do diretório do projeto por meio do terminal o comando ``composer update``.
 
-Outra coisa a ser feita é a criação do banco de dados e a configuração dos campos referentes a conexão com o MySql, para isso basta abrir o arquivo [config.php](https://github.com/rafabrito/api_tasks_unmep/tree/main/api/), e redefinir os campos ``DB_HOST``, ``DB_DBNAME``, ``DB_USER``, ``DB_PASSWORD`` e ``DB_CHARSET`` de acordo com as configuração local:
+Outra coisa a ser feita é a criação do banco de dados e a configuração dos campos referentes a conexão com o MySQL, para isso basta abrir o arquivo [config.php](https://github.com/rafabrito/api_tasks_unmep/blob/main/api/config.php), e redefinir os campos ``DB_HOST``, ``DB_DBNAME``, ``DB_USER``, ``DB_PASSWORD`` e ``DB_CHARSET`` de acordo com as configuração local:
 
 + De:
         
@@ -26,11 +26,42 @@ Outra coisa a ser feita é a criação do banco de dados e a configuração dos 
         define('DB_PASSWORD',  'senha_banco_dados');
         define('DB_CHARSET',   'utf-8');
 
-Para preencher o banco de dados recém com dados fictícios é necessário executar o script ``.sql`` que está em [database/api_task_unmep_database.sql](https://github.com/rafabrito/api_tasks_unmep/tree/main/database/).
+Para preencher o banco de dados recém com dados fictícios é necessário executar o script ``.sql`` que está em [database/api_task_unmep_database.sql](https://github.com/rafabrito/api_tasks_unmep/blob/main/database/api_task_unmep_database.sql).
 
-## Teste da API e URL de acesso
+O projeto está estruturado da seguinte forma:
 
-Para testar o projeto por meio da API basta usar plataformas como Postman ou Insomnia.
+```sh
+api_tasks_unmep
+├── api
+│   ├── core
+│   │   ├── class
+│   │   │   └── Database.php
+│   │   ├── controller
+│   │   │   └── Main.php
+│   │   ├── models
+│   │   │   └── Task.php
+│   │   └── routes.php
+│   ├── composer.json
+│   ├── composer.lock
+│   ├── vendor
+│   ├── config.php
+│   └──index.php
+└── database
+    └──api_task_unmep_database.sql
+```
+
+| Arquivo | Descrição |
+|---|---|
+|``Database.php``| responsável pela conexão com o banco de dados e pelas operações CRUD.|
+|``Main.php``| controla o fluxo de dados de entrada e saída.|
+|``Task.php``| manipula os dados vinculados a tabela ``task``.|
+|``routes.php``| resposável por vincular as URIs que identifica um recurso ao controller para acessar .algo, como por exemplo, a lista com todas as tarefas.|
+|``config.php``| definição das configurações básicas da aplicação e do banco de dados.|
+|``index.php``| arquivo pricipal que permite o carregamento de outros arquivos importantes para que a aplicação funcione como esperado.|
+
+## Execução da API e URL de acesso
+
+Para testar o projeto por meio da API hospedada na ``Vercel`` basta usar plataformas como [Postman](https://www.postman.com/downloads/) ou [Insomnia](https://insomnia.rest/download).
 
 URL da API: https://api-tasks-unmep.vercel.app
 
@@ -38,9 +69,10 @@ Para o preenchimento dos campos seja durante a criação ou atualização de uma
 
 ## Respostas da API (response)
 
-
-`[sucess]`: Requisição realizada com sucesso.
-`[error]`: Erros de validação ou relacionados aos campos informados não existirem ou estarem vazias ou devido a não existência no sistema.
+| Termo | Descrição |
+|---|---|
+|`[sucess]`| Requisição realizada com sucesso.|
+|`[error]`| Erros de validação ou relacionados aos campos informados não existirem ou estarem vazias ou devido a não existência no sistema.|
 
 ## Grupo de Recursos da API
 
@@ -116,7 +148,7 @@ Adicionar uma nova tarefa a lista de tarefas.
 + Attributes (object)
 
     + title: nome do título (string, required)
-    + description (text, required)
+    + description: descrição da tarefa (text, required)
     + status (array, required) - Tipo
         + pendente
         + executando
@@ -190,12 +222,12 @@ Editar tarefa específica da lista de tarefas, salientando que um ou mais campos
 ### Editar (Update) [POST]
 
 + Parameters
-    + id (required, number, `1`)
+    + id (required, number, `1`) ... Índice da tarefa
 
 + Attributes (object)
 
     + title: nome do título (string, optional)
-    + description (text, optional)
+    + description: descrição da tarefa (text, optional)
     + status (array, optional) - Tipo
         + pendente
         + executando
@@ -269,7 +301,7 @@ Excluir tarefa específica da lista de tarefas.
 ### Deletar (Delete) [DELETE]
 
 + Parameters
-    + id (required, number, `1`)
+    + id (required, number, `1`) ... Índice da tarefa
 
 
 + Request (application/json)
@@ -305,7 +337,7 @@ Exibir uma tarefa específica da lista de tarefas.
 ### Detalhar (Read) [GET]
 
 + Parameters
-    + codigo (required, number, `1`) ... Código do contato
+    + codigo (required, number, `1`) ... Índice da tarefa
 
 + Request (application/json)
 
@@ -350,4 +382,4 @@ Exibir uma tarefa específica da lista de tarefas.
 
 ## Uso de Banco de dados externo
 
-Para que fosse possível usar o MySql como SGBD da API (hospedada no ``Vercel``), foi necessário criar uma conta na plataforma [Clever Clound](https://www.clever-cloud.com) e implantar de forma gratuita o MySql.
+Para que fosse possível usar o MySQL como SGBD da API (hospedada no ``Vercel``), foi necessário criar uma conta na plataforma [Clever Clound](https://www.clever-cloud.com) e implantar de forma gratuita o MySQL.

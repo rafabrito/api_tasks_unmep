@@ -55,11 +55,14 @@ class Database {
             throw new Exception("Database - Não é uma instrução SELECT");
         }
         
+        // conectar ao banco de dados
         $this->connect();
 
         $result = null;
 
+        // tenta realizar a comunicação com o banco de dados
         try {
+            // comunicação com o banco de dados
             if(!empty($param)){
                 $exe = $this->connection->prepare($sql);
                 $exe->execute($param);
@@ -74,6 +77,7 @@ class Database {
             return false;
         }
 
+        // desconectar o banco de dados
         $this->disconnect();
 
         return $result;
@@ -94,9 +98,12 @@ class Database {
             throw new Exception("Database - Não é uma instrução INSERT");
         }
         
+        // conectar ao banco de dados
         $this->connect();
 
+        // tenta realizar a comunicação com o banco de dados
         try {
+            // comunicação com o banco de dados
             if(!empty($param)){
                 $exe = $this->connection->prepare($sql);
                 $exe->execute($param);
@@ -109,6 +116,7 @@ class Database {
             return false;
         }
 
+        // desconectar o banco de dados
         $this->disconnect();
     }
 
@@ -127,9 +135,12 @@ class Database {
             throw new Exception("Database - Não é uma instrução UPDATE");
         }
         
+        // conectar ao banco de dados
         $this->connect();
 
+        // tenta realizar a comunicação com o banco de dados
         try {
+            // comunicação com o banco de dados
             if(!empty($param)){
                 $exe = $this->connection->prepare($sql);
                 foreach($param as $key => $value) {
@@ -145,6 +156,7 @@ class Database {
             return false;
         }
 
+        // desconectar o banco de dados
         $this->disconnect();
     }
 
@@ -163,9 +175,12 @@ class Database {
             throw new Exception("Database - Não é uma instrução DELETE");
         }
         
+        // conectar ao banco de dados
         $this->connect();
 
+        // tenta realizar a comunicação com o banco de dados
         try {
+            // comunicação com o banco de dados
             if(!empty($param)) {
                 $exe = $this->connection->prepare($sql);
                 $exe->execute($param);
@@ -178,6 +193,7 @@ class Database {
             return false;
         }
 
+        // desconectar o banco de dados
         $this->disconnect();
     }
 }

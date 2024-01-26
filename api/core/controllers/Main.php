@@ -14,6 +14,8 @@ class Main
     public function index() 
     {   
         $task = new Task();
+
+        // recuperar todas as tarefas
         $list_task = $task->list_task();
 
         // tratar o campo date_at para o formato d-m-Y
@@ -49,6 +51,8 @@ class Main
                         $sts = mb_convert_case(trim($_POST['status']), MB_CASE_LOWER_SIMPLE, 'UTF-8');
                         if(in_array($sts, $status)) {
                             $task = new Task();
+
+                            // criar uma nova tarefa
                             $task->create_task();
 
                             $data = [
@@ -96,7 +100,6 @@ class Main
 
             echo json_encode($data);
         }
-        
     }
 
     /**
@@ -110,7 +113,9 @@ class Main
         $status = array('pendente','executando', 'concluída');
         $data = null;
     
+        // verifica se existem dados submetidos
         if(!empty($_POST)) {
+            // verifica se o campo 'id' foi definido e se é diferente de vazio
             if(isset($_GET['id']) AND !empty($_GET['id'])) {
                 if((isset($_POST['title']) OR isset($_POST['description']) OR isset($_POST['status']))) {
                     // verificar se existe o campo status e se o status é válido estando em minúsculo ou em maiusculo
@@ -126,12 +131,17 @@ class Main
                     } else {
 
                         $task = new Task();
+
+                        // buscar tarefa pelo 'id'
                         $verify = $task->find_task($_GET['id']);
 
+                        // verifica se exite uma dada tarefa com 'id' específico 
                         if(!empty($verify)) {
 
+                            // atualizar os dados pertencentes a uma dada tarefa
                             $task->edit_task($_GET['id']);
 
+                            // buscar a tarefa atualizada por meio do 'id'
                             $task_edited = $task->find_task($_GET['id']);
 
                             // tratar o campo date_at para o formato d-m-Y
@@ -164,8 +174,11 @@ class Main
         } else {
 
             $task = new Task();
-            $verify = $task->find_task($_GET['id']);
 
+            // buscar uma dada tarefa pelo 'id'
+            $verify = $task->find_task($_GET['id']);
+            
+            // verifica se exite uma dada tarefa com 'id' específico 
             if(!empty($verify)) {
                 $data = [
                     "task" => $verify,
@@ -191,13 +204,18 @@ class Main
      */
     public function destroy()
     {
+        // verifica se o campo 'id' foi definido e se é diferente de vazio
         if(isset($_GET['id']) AND !empty($_GET['id'])) {
 
             $task = new Task();
+
+            // buscar tarefa pelo 'id'
             $verify = $task->find_task($_GET['id']);
 
+            // verifica se exite uma dada tarefa com 'id' específico
             if(!empty($verify)) {
 
+                // remover tarefa pelo 'id'
                 $task->delete_task($_GET['id']);
 
                 $data = [
@@ -223,11 +241,15 @@ class Main
      */
     public function show()
     {
+        // verifica se o campo 'id' foi definido e se é diferente de vazio
         if(isset($_GET['id']) AND !empty($_GET['id'])) {
             
             $task = new Task();
+
+            // buscar tarefa pelo 'id'
             $single_task = $task->find_task($_GET['id']);
 
+            // verifica se exite uma dada tarefa com 'id' específico
             if(!empty($single_task)) {
 
                 // tratar o campo date_at para o formato d-m-Y
@@ -253,6 +275,5 @@ class Main
 
             echo json_encode($data);
         }
-
     }
 }
