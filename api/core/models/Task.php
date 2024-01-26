@@ -15,6 +15,7 @@ class Task {
     {
         $db = new Database();
 
+        // recuperar todos os dados com todos os campos
         $result = $db->select("SELECT * FROM task");
 
         return $result;
@@ -31,6 +32,7 @@ class Task {
 
         $db = new Database();
 
+        // parâmetros
         $params = [
             ':title' => trim($_POST['title']),
             ':description' => trim($_POST['description']),
@@ -38,7 +40,7 @@ class Task {
             ':date_at' => date('Y-m-d H:i:s', time())
         ];
 
-
+        // inserir os valores contidos nos parâmetros 
         $result = $db->insert("
             INSERT INTO task VALUES(
                 0,
