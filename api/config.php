@@ -11,7 +11,7 @@ define('DB_USER',      $_ENV['DB_USER']);
 define('DB_PASSWORD',  $_ENV['DB_PASSWORD']);
 define('DB_CHARSET',   $_ENV['DB_CHARSET']);
 
-// MYSQL
+// Exemplo de como deve ser configurado
 // define('DB_HOST',      'localhost');
 // define('DB_DBNAME',    'nome_banco_dados');
 // define('DB_USER',      'root');

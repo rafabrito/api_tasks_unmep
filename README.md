@@ -1,385 +1,428 @@
 # API Tasks UNMEP
 
-A [API Tasks UNMEP](https://api-tasks-unmep.vercel.app) foi hospedada na plataforma ``Vercel`` para possibilitar a listagem, criação, atualização e exclusão de tarefas, as tarefas em questão contém os seguintes campos: título, descrição, status (pendente, executando e concluída) e data (data de criação da tarefa que será preenchido automaticamente).
+A **API Tasks UNMEP** é uma API REST desenvolvida em **PHP puro** com o objetivo de gerenciar uma lista de tarefas, permitindo as operações básicas de **CRUD** (Create, Read, Update, Delete). Cada tarefa possui os seguintes campos:
 
-## Execução do projeto em outra máquina (opcional)
+| Campo | Tipo | Descrição |
+|---|---|---|
+| `id` | int | Identificador único gerado automaticamente |
+| `title` | varchar(255) | Título da tarefa |
+| `description` | text | Descrição detalhada da tarefa |
+| `status` | enum | Estado da tarefa: `pendente`, `executando` ou `concluída` |
+| `date_at` | datetime | Data/hora de criação ou última atualização, preenchida automaticamente |
 
-Para executar este projeto em outra máquina como uma API local é necessário ter instalado o PHP, XAMPP ou WampServer, o MySQL e o gerenciador de dependências composer, contudo as dependências necessárias já estão inclusas neste repositório.
+A API foi hospedada na plataforma **Vercel** e utilizou um banco de dados **MySQL** externo provisionado no **Clever Cloud**.
 
-Caso ocorra algum problema relacionado às dependências basta executar dentro do diretório do projeto por meio do terminal o comando ``composer update``.
+---
 
-Outra coisa a ser feita é a criação do banco de dados e a configuração dos campos referentes a conexão com o MySQL, para isso basta abrir o arquivo [config.php](https://github.com/rafabrito/api_tasks_unmep/blob/main/api/config.php), e redefinir os campos ``DB_HOST``, ``DB_DBNAME``, ``DB_USER``, ``DB_PASSWORD`` e ``DB_CHARSET`` de acordo com as configuração local:
+## Ferramentas e Configurações Necessárias
 
-+ De:
-        
-        define('DB_HOST',      $_ENV['DB_HOST']);
-        define('DB_DBNAME',    $_ENV['DB_DBNAME']);
-        define('DB_USER',      $_ENV['DB_USER']);
-        define('DB_PASSWORD',  $_ENV['DB_PASSWORD']);
-        define('DB_CHARSET',   $_ENV['DB_CHARSET']);
+Para executar o projeto localmente, você precisa ter instalado:
 
-+ Para:
+| Ferramenta | Finalidade |
+|---|---|
+| **PHP 8.x** | Interpretador da linguagem |
+| **XAMPP** ou **WampServer** | Servidor web local com Apache e MySQL |
+| **MySQL** | Sistema gerenciador de banco de dados |
+| **Composer** | Gerenciador de dependências PHP |
 
-        define('DB_HOST',      'localhost');
-        define('DB_DBNAME',    'nome_banco_de_dados');
-        define('DB_USER',      'nome_usuario_banco_dados');
-        define('DB_PASSWORD',  'senha_banco_dados');
-        define('DB_CHARSET',   'utf-8');
+> As dependências já estão incluídas no repositório dentro da pasta `api/vendor/`. Caso ocorra algum problema relacionado a elas, execute o comando abaixo dentro do diretório `api/` pelo terminal:
 
-Para preencher o banco de dados recém criado com dados fictícios é necessário executar o script ``.sql`` que está em [database/api_task_unmep_database.sql](https://github.com/rafabrito/api_tasks_unmep/blob/main/database/api_task_unmep_database.sql).
+```bash
+composer update
+```
 
-O projeto está estruturado da seguinte forma:
+---
 
-```sh
+## Executando o Projeto Localmente
+
+### 1. Criar o banco de dados
+
+Importe o arquivo SQL localizado em [`database/api_task_unmep_database.sql`](database/api_task_unmep_database.sql) no seu MySQL local (via phpMyAdmin ou terminal). Esse script irá:
+
+- Criar a tabela `task` com todos os seus campos e índices
+- Popular a tabela com **4 tarefas fictícias** para testes imediatos
+
+### 2. Configurar a conexão com o banco de dados
+
+Abra o arquivo [`api/config.php`](api/config.php) e substitua as constantes de ambiente pelas suas credenciais locais:
+
+- **De** (configuração para produção via variáveis de ambiente):
+
+```php
+define('DB_HOST',      $_ENV['DB_HOST']);
+define('DB_DBNAME',    $_ENV['DB_DBNAME']);
+define('DB_USER',      $_ENV['DB_USER']);
+define('DB_PASSWORD',  $_ENV['DB_PASSWORD']);
+define('DB_CHARSET',   $_ENV['DB_CHARSET']);
+```
+
+- **Para** (configuração local):
+
+```php
+define('DB_HOST',      'localhost');
+define('DB_DBNAME',    'nome_do_banco_de_dados');
+define('DB_USER',      'usuario_mysql');
+define('DB_PASSWORD',  'senha_mysql');
+define('DB_CHARSET',   'utf8');
+```
+
+### 3. Iniciar o servidor
+
+Com o XAMPP ou WampServer em execução, coloque o projeto dentro da pasta `htdocs/` (XAMPP) ou `www/` (WampServer) e acesse via navegador:
+
+```
+http://localhost/api_tasks_unmep/api/
+```
+
+---
+
+## Arquivo SQL — `database/api_task_unmep_database.sql`
+
+O arquivo [`database/api_task_unmep_database.sql`](database/api_task_unmep_database.sql) é um dump gerado pelo **phpMyAdmin** e contém:
+
+1. **Criação da tabela `task`** com a seguinte estrutura:
+
+```sql
+CREATE TABLE `task` (
+  `id`          int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title`       varchar(255)     DEFAULT NULL,
+  `description` text             DEFAULT NULL,
+  `status`      enum('pendente','executando','concluída') DEFAULT NULL,
+  `date_at`     datetime         DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+
+2. **Inserção de dados fictícios** — 4 tarefas de exemplo com variados status (`pendente`, `executando`, `concluída`) para que a API já possa ser testada imediatamente após a importação.
+
+3. **Definição de AUTO_INCREMENT** — o campo `id` é chave primária com incremento automático.
+
+> ⚠️ O banco de dados esperado por padrão se chama `nome_banco_dados`. Certifique-se de criá-lo antes de importar o script, ou ajuste o nome conforme preferir e reflita essa mudança no [`config.php`](api/config.php).
+
+---
+
+## Estrutura do Projeto
+
+```
 api_tasks_unmep
 ├── api
 │   ├── core
 │   │   ├── class
-│   │   │   └── Database.php
-│   │   ├── controller
-│   │   │   └── Main.php
+│   │   │   └── Database.php        # Classe de conexão e operações com o banco de dados (PDO)
+│   │   ├── controllers
+│   │   │   └── Main.php            # Controller principal: valida entradas e retorna respostas JSON
 │   │   ├── models
-│   │   │   └── Task.php
-│   │   └── routes.php
+│   │   │   └── Task.php            # Model: executa as queries SQL relacionadas à tabela task
+│   │   └── routes.php              # Mapeamento das rotas (query string ?a=) para métodos do controller
+│   ├── vendor                      # Dependências gerenciadas pelo Composer (PSR-4 autoload)
 │   ├── composer.json
 │   ├── composer.lock
-│   ├── vendor
-│   ├── config.php
-│   └──index.php
+│   ├── config.php                  # Configurações globais da aplicação e credenciais do banco
+│   └── index.php                   # Ponto de entrada da aplicação
 └── database
-    └──api_task_unmep_database.sql
+    └── api_task_unmep_database.sql # Script SQL com estrutura e dados iniciais da tabela task
 ```
 
-| Arquivo | Descrição |
+---
+
+## Principais Arquivos PHP
+
+### [`api/index.php`](api/index.php)
+Ponto de entrada da aplicação. Responsável por:
+- Iniciar a sessão PHP (`session_start()`)
+- Carregar as configurações globais via `config.php`
+- Registrar o autoloader do Composer (`vendor/autoload.php`)
+- Carregar o sistema de roteamento (`core/routes.php`)
+
+### [`api/config.php`](api/config.php)
+Define as constantes globais da aplicação, incluindo nome, versão e as credenciais de conexão com o MySQL. Em produção (Vercel), os valores são lidos de **variáveis de ambiente**. Localmente, as constantes são definidas diretamente com os dados da máquina.
+
+### [`api/core/routes.php`](api/core/routes.php)
+Mapeia o parâmetro `?a=` da query string para um método específico do controller. O roteamento funciona da seguinte forma:
+
+```php
+$routes = [
+    'list_task'    => 'main@index',
+    'create_task'  => 'main@create',
+    'edit_task'    => 'main@edit',
+    'delete_task'  => 'main@destroy',
+    'display_task' => 'main@show',
+];
+```
+
+Se nenhuma ação for informada (ou a ação não existir), a rota padrão é `list_task`, que exibe todas as tarefas.
+
+### [`api/core/class/Database.php`](api/core/class/Database.php)
+Classe de abstração de banco de dados utilizando **PDO**. Implementa os métodos:
+- `select()` — valida e executa instruções `SELECT`, retornando resultados como objetos
+- `insert()` — valida e executa instruções `INSERT`
+- `update()` — valida e executa instruções `UPDATE` com bind de parâmetros nomeados
+- `delete()` — valida e executa instruções `DELETE`
+
+Todos os métodos abrem e fecham a conexão por demanda, e usam **prepared statements** para prevenir SQL Injection.
+
+### [`api/core/controllers/Main.php`](api/core/controllers/Main.php)
+Controller principal que recebe as requisições HTTP, valida os dados de entrada e retorna as respostas em **JSON**. Seus métodos correspondem a cada rota:
+
+| Método | Rota | Ação |
+|---|---|---|
+| `index()` | `list_task` | Lista todas as tarefas |
+| `create()` | `create_task` | Cria uma nova tarefa após validar todos os campos obrigatórios |
+| `edit()` | `edit_task` | Atualiza campos específicos de uma tarefa existente |
+| `destroy()` | `delete_task` | Remove uma tarefa pelo `id` |
+| `show()` | `display_task` | Exibe uma tarefa específica pelo `id` |
+
+### [`api/core/models/Task.php`](api/core/models/Task.php)
+Model responsável pelas queries SQL da tabela `task`. Encapsula as operações:
+- `list_task()` — `SELECT * FROM task`
+- `create_task()` — `INSERT INTO task ...` com os dados do `$_POST`
+- `edit_task($id)` — `UPDATE task SET ... WHERE id = :id`, montando dinamicamente apenas os campos enviados
+- `delete_task($id)` — `DELETE FROM task WHERE id = :id`
+- `find_task($id)` — `SELECT * FROM task WHERE id IN ($id)`
+
+---
+
+## Testando a API Localmente
+
+Para testar os endpoints da API recomenda-se o uso de ferramentas como:
+
+- **[Postman](https://www.postman.com/downloads/)** — utilize `form-data` no corpo da requisição para simular o envio de formulários
+- **[Insomnia](https://insomnia.rest/download)** — utilize `Multipart Form` para o mesmo fim
+
+Essas ferramentas permitem configurar o método HTTP (GET, POST, DELETE), os parâmetros de URL e o corpo da requisição de forma visual e prática.
+
+---
+
+## Respostas da API (Response)
+
+Todas as respostas da API são retornadas no formato **JSON**. As chaves de nível superior indicam o resultado da operação:
+
+| Chave | Significado |
 |---|---|
-|``Database.php``| responsável pela conexão com o banco de dados e pelas operações CRUD.|
-|``Main.php``| controla o fluxo de dados de entrada e saída.|
-|``Task.php``| manipula os dados vinculados a tabela ``task``.|
-|``routes.php``| resposável por vincular as URIs que identifica um recurso ao controller para acessar .algo, como por exemplo, a lista com todas as tarefas.|
-|``config.php``| definição das configurações básicas da aplicação e do banco de dados.|
-|``index.php``| arquivo pricipal que permite o carregamento de outros arquivos importantes para que a aplicação funcione como esperado.|
+| `tasks` | Lista de tarefas retornada com sucesso |
+| `task` | Objeto de tarefa única retornado com sucesso |
+| `success` | Operação realizada com sucesso (ex: criação) |
+| `message` | Mensagem descritiva do resultado da operação |
+| `removed` | ID da tarefa que foi removida |
+| `error` | Erro de validação ou de existência do recurso |
 
-## Execução da API e URL de acesso
+---
 
-Para testar o projeto por meio da API hospedada na ``Vercel`` basta usar plataformas como [Postman](https://www.postman.com/downloads/) ou [Insomnia](https://insomnia.rest/download).
+## Endpoints da API
 
-URL da API: https://api-tasks-unmep.vercel.app
+### `GET /` ou `GET /?a=list_task` — Listar todas as tarefas
 
-Para o preenchimento dos campos seja durante a criação ou atualização de uma tarefa indica-se o uso do ``form-data`` no Postman ou de um ``Multipart Form`` no Insomnia para simulação de um formulário de preenchimento.
+Retorna a lista completa de tarefas cadastradas.
 
-## Respostas da API (response)
+**Headers:** Não obrigatórios
 
-| Termo | Descrição |
-|---|---|
-|`[sucess]`| Requisição realizada com sucesso.|
-|`[error]`| Erros de validação ou relacionados aos campos informados não existirem ou estarem vazias ou devido a não existência no sistema.|
+**Parâmetros de URL:** Nenhum
 
-## Grupo de Recursos da API
-
-### Listar Tarefas [/ ``ou`` /?a=list_task]
-
-Exibir a lista com todas as tarefas.
-
-### Listar (List) [GET]
-
-+ Request (application/json)
-
-    + Headers
-
-            Não é obrigatório o seu preenchimento
-
-
-+ Response [sucess] (application/json)
-
+**Resposta de sucesso `200`:**
+```json
+{
+    "tasks": [
         {
-            "tasks": [
-                {
-                    "id": 1,
-                    "title": "Tarefa 1",
-                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, 
-                    convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames 
-                    lectus mattis.",
-                    "status": "pendente",
-                    "date_at": "23-01-2024"
-                },
-                {
-                    "id": 2,
-                    "title": "Tarefa 2",
-                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, 
-                    convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames 
-                    lectus mattis.",
-                    "status": "concluída",
-                    "date_at": "23-01-2024"
-                },
-                {
-                    "id": 3,
-                    "title": "Tarefa 3",
-                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, 
-                    convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames 
-                    lectus mattis.",
-                    "status": "concluída",
-                    "date_at": "20-01-2024"
-                },
-                {
-                    "id": 4,
-                    "title": "Tarefa 4",
-                    "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar, 
-                    convallis eu ipsum massa vestibulum magna cubilia, maecenas inceptos id per fames 
-                    lectus mattis.",
-                    "status": "executando",
-                    "date_at": "20-01-2024"
-                }
-            ]
+            "id": 1,
+            "title": "Tarefa 1",
+            "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar...",
+            "status": "pendente",
+            "date_at": "23-01-2024"
+        },
+        {
+            "id": 2,
+            "title": "Tarefa 2",
+            "description": "Lorem ipsum ut elit magna hendrerit amet habitasse pulvinar...",
+            "status": "concluída",
+            "date_at": "23-01-2024"
         }
+    ]
+}
+```
+
+---
+
+### `POST /?a=create_task` — Criar uma nova tarefa
+
+Adiciona uma nova tarefa à lista.
+
+**Headers:** Não obrigatórios
+
+**Body** (`form-data` / `multipart-form`):
+
+| Campo | Tipo | Obrigatório | Descrição |
+|---|---|---|---|
+| `title` | string | ✅ Sim | Título da tarefa |
+| `description` | text | ✅ Sim | Descrição da tarefa |
+| `status` | string | ✅ Sim | `pendente`, `executando` ou `concluída` |
+
+**Exemplo de body:**
+```json
+{
+    "title": "Título da tarefa",
+    "description": "Descrição da tarefa que será feita",
+    "status": "pendente"
+}
+```
+
+**Resposta de sucesso `200`:**
+```json
+{
+    "success": {
+        "message": "Tarefa criada com sucesso!"
+    }
+}
+```
+
+**Respostas de erro `200`:**
+```json
+{ "error": { "message": "Status não existe", "possible status": ["pendente","executando","concluída"] } }
+{ "error": { "message": "O campo 'status' não foi definido" } }
+{ "error": { "message": "O campo 'description' não foi definido" } }
+{ "error": { "message": "O campo 'title' não foi definido" } }
+{ "error": { "message": "Não foram preenchido todos os campos" } }
+```
 
-### Criar Tarefa [/?a=create_task]
+---
 
-Adicionar uma nova tarefa a lista de tarefas.
+### `POST /?a=edit_task&id={id}` — Editar uma tarefa
+
+Atualiza um ou mais campos de uma tarefa existente. Apenas os campos enviados serão alterados.
+
+**Headers:** Não obrigatórios
+
+**Parâmetros de URL:**
+
+| Parâmetro | Tipo | Obrigatório | Descrição |
+|---|---|---|---|
+| `id` | number | ✅ Sim | ID da tarefa a ser editada |
+
+**Body** (`form-data` / `multipart-form`) — todos opcionais, mas ao menos um deve ser informado:
+
+| Campo | Tipo | Obrigatório | Descrição |
+|---|---|---|---|
+| `title` | string | ❌ Opcional | Novo título da tarefa |
+| `description` | text | ❌ Opcional | Nova descrição da tarefa |
+| `status` | string | ❌ Opcional | `pendente`, `executando` ou `concluída` |
+
+**Exemplo de body:**
+```json
+{
+    "title": "Título alterado",
+    "description": "Descrição alterada",
+    "status": "pendente"
+}
+```
+
+**Resposta de sucesso `200`:**
+```json
+{
+    "task": [
+        {
+            "id": 9,
+            "title": "Titulo alterado",
+            "description": "Descrição alterada",
+            "status": "pendente",
+            "date_at": "23-01-2024"
+        }
+    ],
+    "message": "Tarefa editada com sucesso!"
+}
+```
 
-#### Criar (Create) [POST]
+**Respostas de erro `200`:**
+```json
+{ "error": { "message": "Status não existe", "possible status": ["pendente","executando","concluída"] } }
+{ "error": { "message": "Tarefa não existe" } }
+{ "error": { "message": "Não foi especificado o 'id' da tarefa" } }
+```
 
-+ Request (application/json)
+---
 
-    + Headers
+### `DELETE /?a=delete_task&id={id}` — Excluir uma tarefa
 
-            Não é obrigatório o seu preenchimento
+Remove permanentemente uma tarefa da lista.
 
+**Headers:** Não obrigatórios
 
-+ Attributes (object)
+**Parâmetros de URL:**
 
-    + title: nome do título (string, required)
-    + description: descrição da tarefa (text, required)
-    + status (array, required) - Tipo
-        + pendente
-        + executando
-        + concluída
+| Parâmetro | Tipo | Obrigatório | Descrição |
+|---|---|---|---|
+| `id` | number | ✅ Sim | ID da tarefa a ser excluída |
 
+**Body:** Não necessário
 
-+ Request (application/json)
+**Resposta de sucesso `200`:**
+```json
+{
+    "removed": 5,
+    "message": "Tarefa deletada com sucesso!"
+}
+```
 
-    + Body
+**Respostas de erro `200`:**
+```json
+{ "error": { "message": "Tarefa não existe" } }
+```
 
-            {
-              "title": "Título da tarefa",
-              "description": "Descrição da tarefa que será feita",
-              "status": "pendente"
-            }
+---
 
+### `GET /?a=display_task&id={id}` — Exibir uma tarefa específica
 
-+ Response [sucess] (application/json)
+Retorna os dados de uma única tarefa pelo seu ID.
 
-    + Body
+**Headers:** Não obrigatórios
 
-            {
-                "sucess": {
-                    "message": "Tarefa criada com sucesso!"
-                } 
-            }
+**Parâmetros de URL:**
 
-+ Response [error] (application/json)
+| Parâmetro | Tipo | Obrigatório | Descrição |
+|---|---|---|---|
+| `id` | number | ✅ Sim | ID da tarefa a ser exibida |
 
-    + Body
+**Body:** Não necessário
 
-            {
-                "error": {
-                    "message": "Status não existe",
-                    "possible status": ["pendente","executando", "concluída"]
-                }
-            }
+**Resposta de sucesso `200`:**
+```json
+{
+    "task": [
+        {
+            "id": 1,
+            "title": "Tarefa 1",
+            "description": "Lorem ipsum ut elit magna...",
+            "status": "pendente",
+            "date_at": "23-01-2024"
+        }
+    ]
+}
+```
 
+**Respostas de erro `200`:**
+```json
+{ "error": { "message": "Tarefa não existe" } }
+{ "error": { "message": "Não foi especificado o 'id' da tarefa" } }
+```
 
-            {
-                "error": { 
-                    "message": "O campo 'status' não foi definido"
-                }
-            }
+---
 
+## Hospedagem: Vercel + Clever Cloud
 
-            {
-                "error": { 
-                    "message": "O campo 'description' não foi definido"
-                }
-            }
+### Vercel (API PHP)
 
+A API é hospedada gratuitamente na **[Vercel](https://vercel.com)**, uma plataforma de deploy focada em frontend e funções serverless que também suporta PHP via runtime.
 
-            {
-                "error": { 
-                    "message": "O campo 'title' não foi definido"
-                }
-            }
+O deploy é feito conectando o repositório GitHub à Vercel. A cada novo `push` na branch `main`, a Vercel realiza o deploy automático. As **variáveis de ambiente** (`DB_HOST`, `DB_DBNAME`, `DB_USER`, `DB_PASSWORD`, `DB_CHARSET`) são configuradas diretamente no painel da Vercel em **Settings → Environment Variables**, sendo injetadas na aplicação PHP via `$_ENV['...']` (lidas em [`api/config.php`](api/config.php)).
 
+> O arquivo `vercel.json` (não versionado, presente no `.gitignore`) é usado para configurar o roteamento da aplicação PHP na plataforma, direcionando todas as requisições para o `api/index.php`.
 
-            {
-                "error": { 
-                    "message": "Não foram preenchido todos os campos"
-                }
-            }
+### Clever Cloud (Banco de dados MySQL)
 
-### Editar Tarefa [/?a=edit_task&id={id_task}]
+Como a Vercel não oferece banco de dados relacional nativo, foi utilizado o **[Clever Cloud](https://www.clever-cloud.com)** para provisionar uma instância **MySQL gratuita** na nuvem.
 
-Editar tarefa específica da lista de tarefas, salientando que um ou mais campos podem ser alterados na edição.
+O processo consiste em:
+1. Criar uma conta no Clever Cloud
+2. Criar um add-on do tipo **MySQL** (plano gratuito disponível)
+3. Obter as credenciais de conexão fornecidas pelo painel (host, nome do banco, usuário, senha e charset)
+4. Inserir essas credenciais como variáveis de ambiente na Vercel
 
-### Editar (Update) [POST]
-
-+ Parameters
-    + id (required, number, `1`) ... Índice da tarefa
-
-+ Attributes (object)
-
-    + title: nome do título (string, optional)
-    + description: descrição da tarefa (text, optional)
-    + status (array, optional) - Tipo
-        + pendente
-        + executando
-        + concluída
-
-+ Request (application/json)
-
-    + Headers
-
-            Não é obrigatório o seu preenchimento
-
-
-+ Request (application/json)
-
-    + Body
-
-            {
-              "title": "Título alterado",
-              "description": "Descrição alterado",
-              "status": "pendente",
-            }
-
-
-+ Response [sucess] (application/json)
-
-    + Body
-
-            {
-                "task": [
-                    {
-                        "id": 9,
-                        "title": "Titulo alterado",
-                        "description": "Descrição alterada",
-                        "status": "pendente",
-                        "date_at": "23-01-2024"
-                    }
-                ],
-                "message": "Tarefa editada com sucesso!"
-            }
-
-+ Response [error] (application/json)
-
-    + Body
-
-            {
-                "error": {
-                    "message": "Status não existe",
-                    "possible status": ["pendente","executando", "concluída"]
-                }
-            }
-
-
-            {
-                "error": { 
-                    "message": "Tarefa não existe"
-                }
-            }
-
-
-            {
-                "error": { 
-                    "message": "Não foi especificado o 'id' da tarefa"
-                }
-            }
-
-
-### Excluir Tarefa [/?a=delete_task&id={id_task}]
-
-Excluir tarefa específica da lista de tarefas.
-
-### Deletar (Delete) [DELETE]
-
-+ Parameters
-    + id (required, number, `1`) ... Índice da tarefa
-
-
-+ Request (application/json)
-
-    + Headers
-
-            Não é obrigatório o seu preenchimento
-
-
-+ Response [sucess] (application/json)
-
-    + Body
-
-            {
-                "removed": 5,
-                "message": "Tarefa deletada com sucesso!"
-            }
-
-+ Response [error] (application/json)
-
-    + Body
-
-            {
-                "error": { 
-                    "message": "Tarefa não existe"
-                }
-            }
-
-### Exibir Tarefa [/?a=display_task&id={id_task}]
-
-Exibir uma tarefa específica da lista de tarefas.
-
-### Detalhar (Read) [GET]
-
-+ Parameters
-    + codigo (required, number, `1`) ... Índice da tarefa
-
-+ Request (application/json)
-
-    + Headers
-
-            Não é obrigatório o seu preenchimento
-
-+ Response [sucess] (application/json)
-
-    + Body
-
-            {
-                "task": [
-                    {
-                        "id": 1,
-                        "title": "Aqui está",
-                        "description": "aqui oh",
-                        "status": "",
-                        "date_at": "23-01-2024"
-                    }
-                ]
-            }
-
-+ Response [error] (application/json)
-
-    + Body
-
-            {
-                "error": { 
-                    "message": "Tarefa não existe"
-                }
-            }
-
-
-            {
-                "error": { 
-                    "message": "Não foi especificado o 'id' da tarefa"
-                }
-            }
-
-            
-
-## Uso de Banco de dados externo
-
-Para que fosse possível usar o MySQL como SGBD da API (hospedada no ``Vercel``), foi necessário criar uma conta na plataforma [Clever Clound](https://www.clever-cloud.com) e implantar de forma gratuita o MySQL.
+Com isso, a API hospedada na Vercel se conecta ao banco MySQL do Clever Cloud a cada requisição, utilizando **PDO com conexão persistente** (definida em [`Database.php`](api/core/class/Database.php)).
