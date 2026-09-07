@@ -93,7 +93,7 @@ class Task {
 
         $params[':id'] = $id;
 
-        // remover ulltimo virgula
+        // remove a ultima virgula
         $fields = rtrim($fields, ', ');
 
         $bd->update("
@@ -134,9 +134,13 @@ class Task {
     public function find_task($id) {
         $bd = new Database();
 
+        $params = [
+            ':id' => $id
+        ];
+
         $result = $bd->select("
             SELECT * FROM task 
-            WHERE id IN ($id)
+            WHERE id IN :id
         ");
 
         return $result;
