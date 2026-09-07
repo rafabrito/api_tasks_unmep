@@ -56,14 +56,14 @@ define('DB_PASSWORD',  $_ENV['DB_PASSWORD']);
 define('DB_CHARSET',   $_ENV['DB_CHARSET']);
 ```
 
-- **Para** (configuração local):
+- **Para** (configuração local no arquivo .env):
 
 ```php
-define('DB_HOST',      '');
-define('DB_DBNAME',    'nome_do_banco_de_dados');
-define('DB_USER',      'usuario_mysql');
-define('DB_PASSWORD',  'senha_mysql');
-define('DB_CHARSET',   'utf8');
+DB_HOST=localhost
+DB_DBNAME=nome_do_banco
+DB_USER=usuario_do_banco
+DB_PASSWORD=senha_do_banco
+DB_CHARSET=utf8
 ```
 
 ### 3. Iniciar o servidor

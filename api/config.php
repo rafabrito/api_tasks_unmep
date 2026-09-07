@@ -10,10 +10,3 @@ define('DB_DBNAME',    $_ENV['DB_DBNAME']);
 define('DB_USER',      $_ENV['DB_USER']);
 define('DB_PASSWORD',  $_ENV['DB_PASSWORD']);
 define('DB_CHARSET',   $_ENV['DB_CHARSET']);
-
-// Exemplo de como deve ser configurado
-// define('DB_HOST',      '');
-// define('DB_DBNAME',    '');
-// define('DB_USER',      '');
-// define('DB_PASSWORD',  '');
-// define('DB_CHARSET',   'utf8');
