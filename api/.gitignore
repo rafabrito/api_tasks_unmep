@@ -1,4 +1,5 @@
+/vendor
 .vercel
 .gitfilter
+.env
 vercel.json
-/vendor

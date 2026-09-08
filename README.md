@@ -25,7 +25,7 @@ Para executar o projeto localmente, você precisa ter instalado:
 | **MySQL** | Sistema gerenciador de banco de dados |
 | **Composer** | Gerenciador de dependências PHP |
 
-> As dependências já estão incluídas no repositório dentro da pasta `api/vendor/`. Caso ocorra algum problema relacionado a elas, execute o comando abaixo dentro do diretório `api/` pelo terminal:
+> Para instalar as dependências do projeto basta executar o comando abaixo dentro do diretório `api/` pelo terminal:
 
 ```bash
 composer update
@@ -114,10 +114,10 @@ api_tasks_unmep
 │   │   ├── models
 │   │   │   └── Task.php            # Model: executa as queries SQL relacionadas à tabela task
 │   │   └── routes.php              # Mapeamento das rotas (query string ?a=) para métodos do controller
-│   ├── vendor                      # Dependências gerenciadas pelo Composer (PSR-4 autoload)
 │   ├── composer.json
 │   ├── composer.lock
 │   ├── config.php                  # Configurações globais da aplicação e credenciais do banco
+│   ├── .gitignore                  # Lista de arquivos ignorados pelo git  
 │   └── index.php                   # Ponto de entrada da aplicação
 └── database
     └── api_task_unmep_database.sql # Script SQL com estrutura e dados iniciais da tabela task
